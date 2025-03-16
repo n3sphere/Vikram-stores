@@ -1,33 +1,53 @@
-// server.js
 const express = require('express');
-const axios = require('axios');
+const cors = require('cors');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
-// Endpoint to send WhatsApp message
-app.post('/send-whatsapp', async (req, res) => {
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch((err) => console.error('Failed to connect to MongoDB:', err));
+
+// Define Checkout Schema
+const checkoutSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  address: String,
+  phone: String,
+  orderDetails: String,
+  total: Number,
+  createdAt: { type: Date, default: Date.now },
+});
+
+const CheckoutModel = mongoose.model('Checkout', checkoutSchema);
+
+// Endpoint to handle checkout
+app.post('/checkout', async (req, res) => {
   const { name, email, address, phone, orderDetails, total } = req.body;
 
-  // Prepare the message
-  const message = `New Order Received!\n\nCustomer Details:\nName: ${name}\nEmail: ${email}\nAddress: ${address}\nPhone: ${phone}\n\nOrder Details:\n${orderDetails}\n\nTotal: $${total}`;
-
-  // Replace with the owner's WhatsApp number
-  const ownerWhatsAppNumber = process.env.OWNER_WHATSAPP_NUMBER;
-
-  // Generate WhatsApp Click to Chat URL
-  const whatsappURL = `https://api.whatsapp.com/send?phone=${ownerWhatsAppNumber}&text=${encodeURIComponent(
-    message
-  )}`;
-
   try {
-    // Send the WhatsApp message
-    await axios.get(whatsappURL);
-    res.status(200).json({ success: true });
+    // Save checkout details to MongoDB
+    const checkoutDoc = new CheckoutModel({
+      name,
+      email,
+      address,
+      phone,
+      orderDetails,
+      total,
+    });
+    await checkoutDoc.save();
+
+    res.status(200).json({ success: true, message: 'Checkout details saved successfully.' });
   } catch (error) {
-    console.error('Error sending WhatsApp message:', error);
-    res.status(500).json({ success: false, error: error.message });
+    console.error('Error:', error);
+    res.status(500).json({ success: false, error: 'Failed to process checkout.' });
   }
 });
 
