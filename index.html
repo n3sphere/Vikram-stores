@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vikram Stores - Fashion Boutique</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjYzIyYjliIiBkPSJNMTkuMTQ4IDIuOTcxQTIuMDEgMi4wMSAwIDAgMCAxNy40MzQgMkg2LjU2NmMtLjY5OCAwLTEuMzU1LjM3Mi0xLjcxNC45NzFMMi4xNDMgNy40ODVBMSAxIDAgMCAwIDIgOGEzLjk3IDMuOTcgMCAwIDAgMSAyLjYxOFYxOWMwIDEuMTAzLjg5NyAyIDIgMmgxNGMxLjEwMyAwIDItLjg5NyAyLTJ2LTguMzgyQTMuOTcgMy45NyAwIDAgMCAyMiA4YTEgMSAwIDAgMC0uMTQzLS41MTV6bS44MzYgNS4yOEEyIDIgMCAwIDEgMTggMTBjLTEuMTAzIDAtMi0uODk3LTItMmMwLS4wNjgtLjAyNS0uMTI4LS4wMzktLjE5MmwuMDItLjAwNEwxNS4yMiA0aDIuMjE0ek0xMC44MTkgNGgyLjM2MWwuODEzIDQuMDY1QzEzLjk1OCA5LjEzNyAxMy4wOCAxMCAxMiAxMHMtMS45NTgtLjg2My0xLjk5My0xLjkzNXpNNi41NjYgNEg4Ljc4bC0uNzYgMy44MDRsLjAyLjAwNEM4LjAyNSA3Ljg3MiA4IDcuOTMyIDggOGMwIDEuMTAzLS44OTcgMi0yIDJhMiAyIDAgMCAxLTEuOTg0LTEuNzQ5ek0xMCAxOXYtM2g0djN6bTYgMHYtM2MwLTEuMTAzLS44OTctMi0yLTJoLTRjLTEuMTAzIDAtMiAuODk3LTIgMnYzSDV2LTcuMTQyYy4zMjEuMDgzLjY1Mi4xNDIgMSAuMTQyYTQgNCAwIDAgMCAzLTEuMzU3Yy43MzMuODMyIDEuODA3IDEuMzU3IDMgMS4zNTdzMi4yNjctLjUyNSAzLTEuMzU3QTQgNCAwIDAgMCAxOCAxMmMuMzQ4IDAgLjY3OS0uMDU5IDEtLjE0MlYxOXoiLz48L3N2Zz4=" alt="Logo" class="logo-img">
+        <span>Vikram Stores</span>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#categories">Categories</a>
+        <a href="#products">Products</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="cart-icon" onclick="toggleCart()">
+        <div class="cart-count" id="cartCount">0</div>
+        🛒
+      </div>
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    </div>
+  </nav>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h2>Shopping Cart</h2>
+      <button onclick="toggleCart()" id="close-btn-cart">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        Total: $<span id="cartTotal">0.00</span>
+      </div>
+      <form id="checkoutForm" class="checkout-form">
+        <div class="form-group">
+          <input type="text" id="checkout-name" required placeholder="Full Name">
+        </div>
+        <div class="form-group">
+          <input type="email" id="checkout-email" required placeholder="Email">
+        </div>
+        <div class="form-group">
+          <input type="text" id="checkout-address" required placeholder="Shipping Address">
+        </div>
+        <div class="form-group">
+          <input type="tel" id="checkout-phone" required placeholder="Phone Number">
+        </div>
+        <button type="submit" class="checkout-btn">Complete Purchase</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1 class="animate-text">Welcome to Vikram Stores</h1>
+      <p class="animate-text-delay">Discover the Latest Fashion Trends here </p>
+      <a href="#products" class="cta-button">Shop Now</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="about-content">
+      <div class="about-text">
+        <h2>About Us</h2>
+        <p>Vikram Stores has been at the forefront of fashion since 2010, offering curated collections that blend contemporary trends with timeless elegance. Our commitment to quality and style has made us a trusted name in fashion retail.</p>
+      </div>
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=800" alt="Store Interior">
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section id="categories" class="categories">
+    <h2>Our Categories</h2>
+    <div class="category-grid">
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800" alt="T-Shirts">
+        <h3>T-Shirts</h3>
+      </div>
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=800" alt="Jeans">
+        <h3>Jeans</h3>
+      </div>
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800" alt="Dresses">
+        <h3>Dresses</h3>
+      </div>
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800" alt="Outerwear">
+        <h3>Outerwear</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section id="featured" class="featured">
+    <h2>Hot Selling Products</h2>
+    <div class="featured-grid">
+      <div class="featured-card">
+        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800" alt="Featured Product 1">
+        <h3>Trendy Sneakers</h3>
+        <p>$99.99</p>
+      </div>
+      <div class="featured-card">
+        <img src="https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=800" alt="Featured Product 2">
+        <h3>Elegant Handbag</h3>
+        <p>$129.99</p>
+      </div>
+      <div class="featured-card">
+        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800" alt="Featured Product 3">
+        <h3>Stylish Watch</h3>
+        <p>$149.99</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section id="products" class="products">
+    <h2>Our Products</h2>
+    <div class="product-grid" id="productGrid"></div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="testimonials">
+    <h2>What Our Customers Say</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800" alt="Customer 1">
+        <p>"Amazing collection and great service! Highly recommended."</p>
+        <h4>- John Doe</h4>
+      </div>
+      <div class="testimonial-card">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800" alt="Customer 2">
+        <p>"The quality of the products is outstanding. Love shopping here!"</p>
+        <h4>- Jane Smith</h4>
+      </div>
+      <div class="testimonial-card">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800" alt="Customer 3">
+        <p>"Fast delivery and excellent customer support. Will shop again!"</p>
+        <h4>- Mike Johnson</h4>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section id="newsletter" class="newsletter">
+    <h2>Subscribe to Our Newsletter</h2>
+    <p>Get the latest updates on new arrivals, exclusive offers, and more.</p>
+    <form id="newsletterForm">
+      <input type="email" id="newsletter-email" required placeholder="Enter your email">
+      <button type="submit" class="subscribe-btn">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="contact-content">
+      <h2>Contact Us</h2>
+      <form id="contactForm">
+        <div class="form-group">
+          <input type="text" id="name" required placeholder="Your Name">
+        </div>
+        <div class="form-group">
+          <input type="email" id="email" required placeholder="Your Email">
+        </div>
+        <div class="form-group">
+          <textarea id="message" required placeholder="Your Message"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Vikram Stores. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="server.js"></script>
+</body>
+</html>
