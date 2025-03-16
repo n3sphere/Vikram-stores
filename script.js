@@ -224,9 +224,15 @@ if (checkoutForm) {
 */
 //Whatsapp feature
 
+// Function to handle checkout form submission
 if (checkoutForm) {
   checkoutForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // Disable the submit button to prevent multiple submissions
+    const submitButton = checkoutForm.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Processing...';
 
     // Collect customer details
     const name = document.getElementById('checkout-name').value;
@@ -245,7 +251,7 @@ if (checkoutForm) {
 
     try {
       // Send data to the backend
-      const response = await fetch('/send-whatsapp', {
+      const response = await fetch('http://localhost:5000/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -258,17 +264,24 @@ if (checkoutForm) {
         }),
       });
 
-      if (response.ok) {
-        alert('Order placed successfully!');
-        cart = []; // Clear the cart
+      const data = await response.json();
+
+      if (data.success) {
+        alert('Checkout details saved successfully!');
+        // Clear the cart
+        cart = [];
         updateCart();
         toggleCart();
       } else {
-        alert('Failed to place order. Please try again.');
+        alert('Failed to save checkout details. Please try again.');
       }
     } catch (error) {
       console.error('Error:', error);
       alert('An error occurred. Please try again.');
+    } finally {
+      // Re-enable the submit button
+      submitButton.disabled = false;
+      submitButton.textContent = 'Complete Purchase';
     }
   });
 }
