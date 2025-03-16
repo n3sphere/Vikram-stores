@@ -4,7 +4,11 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://n3sphere.github.io/Vikram-stores/', // Replace with your frontend domain
+  methods: ['GET', 'POST'],
+  credentials: true,
+}));
 app.use(express.json());
 
 // Connect to MongoDB
