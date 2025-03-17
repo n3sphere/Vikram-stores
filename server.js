@@ -1,11 +1,12 @@
 const express = require('express');
-const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
+const cors = require('cors');
+
 app.use(cors({
-  origin: 'https://n3sphere.github.io/Vikram-stores/', // Replace with your frontend domain
+  origin: 'https://n3sphere.github.io', // Allow requests from your frontend
   methods: ['GET', 'POST'],
   credentials: true,
 }));
