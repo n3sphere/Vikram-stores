@@ -225,19 +225,25 @@ if (checkoutForm) {
 //Whatsapp feature
 
 // Function to handle checkout form submission
+
+
+// Function to handle checkout form submission
 if (checkoutForm) {
   checkoutForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    // Disable the submit button to prevent multiple submissions
     const submitButton = checkoutForm.querySelector('button[type="submit"]');
     submitButton.disabled = true;
     submitButton.textContent = 'Processing...';
 
+    // Collect customer details
     const name = document.getElementById('checkout-name').value;
     const email = document.getElementById('checkout-email').value;
     const address = document.getElementById('checkout-address').value;
     const phone = document.getElementById('checkout-phone').value;
 
+    // Collect order details
     const orderDetails = cart
       .map(
         (item) =>
@@ -247,7 +253,8 @@ if (checkoutForm) {
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     try {
-      const response = await fetch('https://vikram-stores.onrender.com/checkout', {
+      // Send data to the backend
+      const response = await fetch('http://localhost:5000/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -256,7 +263,7 @@ if (checkoutForm) {
           address,
           phone,
           orderDetails,
-          total: total.toFixed(2),
+          total: parseFloat(total.toFixed(2)),
         }),
       });
 
@@ -264,17 +271,19 @@ if (checkoutForm) {
       console.log('Backend response:', data); // Log the response
 
       if (data.success) {
-        alert('Checkout details saved successfully!');
+        alert('Order placed successfully!');
+        // Clear the cart
         cart = [];
         updateCart();
         toggleCart();
       } else {
-        alert('Failed to save checkout details. Please try again.');
+        alert('Failed to place order. Please try again.');
       }
     } catch (error) {
       console.error('Error:', error); // Log the error
       alert('An error occurred. Please try again.');
     } finally {
+      // Re-enable the submit button
       submitButton.disabled = false;
       submitButton.textContent = 'Complete Purchase';
     }
