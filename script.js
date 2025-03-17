@@ -229,18 +229,15 @@ if (checkoutForm) {
   checkoutForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Disable the submit button to prevent multiple submissions
     const submitButton = checkoutForm.querySelector('button[type="submit"]');
     submitButton.disabled = true;
     submitButton.textContent = 'Processing...';
 
-    // Collect customer details
     const name = document.getElementById('checkout-name').value;
     const email = document.getElementById('checkout-email').value;
     const address = document.getElementById('checkout-address').value;
     const phone = document.getElementById('checkout-phone').value;
 
-    // Collect order details
     const orderDetails = cart
       .map(
         (item) =>
@@ -250,7 +247,6 @@ if (checkoutForm) {
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     try {
-      // Send data to the backend
       const response = await fetch('https://vikram-stores.onrender.com/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -265,10 +261,10 @@ if (checkoutForm) {
       });
 
       const data = await response.json();
+      console.log('Backend response:', data); // Log the response
 
       if (data.success) {
         alert('Checkout details saved successfully!');
-        // Clear the cart
         cart = [];
         updateCart();
         toggleCart();
@@ -276,10 +272,9 @@ if (checkoutForm) {
         alert('Failed to save checkout details. Please try again.');
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error); // Log the error
       alert('An error occurred. Please try again.');
     } finally {
-      // Re-enable the submit button
       submitButton.disabled = false;
       submitButton.textContent = 'Complete Purchase';
     }
